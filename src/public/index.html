@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Oyun Günlüğüm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🎮 Oyun Günlüğü Koleksiyonum</h1>
+    
+    <!-- Oyun Ekleme Formu -->
+    <div id="game-form">
+        <input type="text" id="title" placeholder="Oyun Adı" required>
+        <input type="text" id="genre" placeholder="Tür">
+        <input type="number" id="rating" placeholder="Puan (0-10)" min="0" max="10">
+        <select id="status">
+            <option value="İstek Listesi">İstek Listesi</option>
+            <option value="Oynanıyor">Oynanıyor</option>
+            <option value="Tamamlandı">Tamamlandı</option>
+        </select>
+        <button onclick="addGame()">Ekle</button>
+    </div>
+
+    <hr>
+
+    <!-- Oyunların Listeleneceği Alan -->
+    <div id="game-list">
+        <h2>Kütüphanem</h2>
+        <div id="games-container">
+            <!-- Oyunlar buraya JS ile enjekte edilecek -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
