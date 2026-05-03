@@ -7,7 +7,7 @@ async function fetchGames() {
     const res = await fetch(API_URL);
     const games = await res.json();
     const list = document.getElementById('games-container');
-    list.innerHTML = ''; // Eski listeyi temizle
+    list.innerHTML = ''; 
 
     games.forEach(game => {
         const div = document.createElement('div');
@@ -42,13 +42,13 @@ async function addGame() {
 
     if (res.ok) {
         alert("Oyun Eklendi!");
-        fetchGames(); // Sayfa yenilenmeden listeyi güncelle
+        fetchGames(); 
     }
 }
 
 async function deleteGame(id) {
     if (confirm("Bu oyunu silmek istediğine emin misin?")) {
         await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-        fetchGames(); // Listeyi güncelle
+        fetchGames(); 
     }
 }
