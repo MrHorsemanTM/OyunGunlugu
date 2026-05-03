@@ -2,10 +2,10 @@
 Bu proje, Sistem Analizi ve Tasarımı dersi kapsamında geliştirilmiş bir web uygulamasıdır.
 
 Kullanılan Teknolojiler:
--Backend: Node.js, Express
--Frontend: Vanilla Javascript, HTML, CSS
--Veritabanı: MySQL
--Dökümantasyon: Swagger
+1. Backend: Node.js, Express
+2. Frontend: Vanilla Javascript, HTML, CSS
+3. Veritabanı: MySQL
+4. Dökümantasyon: Swagger
 
 Kurulum Notları:
 1. npm install ile gerekli bağımlılıkları yükleyin
