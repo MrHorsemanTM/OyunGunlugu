@@ -11,4 +11,4 @@ Kurulum Notları:
 1. npm install ile gerekli bağımlılıkları yükleyin
 2. .env dosyasını kendi MySQL bilgileriniz ile güncelleyin
 3. node app.js kodunu terminale yazarak sunucuyu başlatın
-4. Tarayıcınıza http://localhost:..../api-docs/ (noktalı kısıma kaöıncı prot kullanılıyorsa yazılmalı) linkini yapıştırın
+4. Tarayıcınıza http://localhost:..../api-docs/ (noktalı kısıma kaçıncı port kullanılıyorsa yazılmalı) linkini yapıştırın
