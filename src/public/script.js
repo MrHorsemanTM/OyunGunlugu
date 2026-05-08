@@ -3,11 +3,13 @@ const API_URL = '/api/games';
 document.addEventListener('DOMContentLoaded', fetchGames);
 
 function getBadge(rating) {
-    if (rating <= 0) return `<span class="badge badge-broken">❌ Kırık Rozet</span>`;
-    if (rating == 1) return `<span class="badge badge-copper">🥉 Bakır Rozet</span>`;
-    if (rating == 2 || rating == 3) return `<span class="badge badge-silver">🥈 Gümüş Rozet</span>`;
-    if (rating == 4) return `<span class="badge badge-gold">🥇 Altın Rozet</span>`;
-    if (rating >= 5) return `<span class="badge badge-diamond">💎 Elmas Rozet</span>`;
+    const r = parseInt(rating);
+    if (r === 0) return `<span class="badge badge-broken">❌ Kırık</span>`;
+    if (r === 1) return `<span class="badge badge-copper">🥉 Bakır</span>`;
+    if (r === 2) return `<span class="badge badge-silver">🥈 Gümüş</span>`;
+    if (r === 3) return `<span class="badge badge-gold">🥇 Altın</span>`;
+    if (r === 4) return `<span class="badge badge-emerald">💚 Zümrüt</span>`; // Yeni eklenen
+    if (r >= 5) return `<span class="badge badge-diamond">💎 Elmas</span>`;
     return '';
 }
 

@@ -2,32 +2,48 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Oyun Günlüğüm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyun Günlüğüm | Rozet Sistemi</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🎮 Oyun Günlüğü Koleksiyonum</h1>
-    
-    
-    <div id="game-form">
-        <input type="text" id="title" placeholder="Oyun Adı" required>
-        <input type="text" id="genre" placeholder="Tür">
-        <input type="number" id="rating" placeholder="Puan (0-5)" min="0" max="5">
-        <select id="status">
-            <option value="İstek Listesi">İstek Listesi</option>
-            <option value="Oynanıyor">Oynanıyor</option>
-            <option value="Tamamlandı">Tamamlandı</option>
-        </select>
-        <button onclick="addGame()">Ekle</button>
-    </div>
+    <div class="container">
+        <h1>🎮 Oyun Günlüğü Koleksiyonum</h1>
+        
+        <div id="game-form" class="card">
+            <h3>Yeni Oyun & Rozet Ekle</h3>
+            <div class="form-group">
+                <input type="text" id="title" placeholder="Oyun Adı" required>
+                <input type="text" id="genre" placeholder="Tür (Örn: RPG, FPS)">
+            </div>
+            
+            <div class="form-group">
+                <label for="rating">Oyun Rozeti:</label>
+                <select id="rating">
+                    <option value="0">❌ Kırık Rozet (0 Puan)</option>
+                    <option value="1">🥉 Bakır Rozet (1 Puan)</option>
+                    <option value="2">🥈 Gümüş Rozet (2 Puan)</option>
+                    <option value="3">🥇 Altın Rozet (3 Puan)</option>
+                    <option value="4">💚 Zümrüt Rozet (4 Puan)</option> 
+                    <option value="5">💎 Elmas Rozet (5 Puan)</option>
+                </select>
 
-    <hr>
+                <select id="status">
+                    <option value="İstek Listesi">İstek Listesi</option>
+                    <option value="Oynanıyor">Oynanıyor</option>
+                    <option value="Tamamlandı">Tamamlandı</option>
+                </select>
+            </div>
+            
+            <button id="add-btn" onclick="addGame()">Kütüphaneye Ekle</button>
+        </div>
 
-    
-    <div id="game-list">
-        <h2>Kütüphanem</h2>
-        <div id="games-container">
-            <!-- Oyunlar buraya JS ile enjekte edilecek -->
+        <hr>
+
+        <div id="game-list">
+            <h2>Kütüphanem</h2>
+            <div id="games-container">
+                </div>
         </div>
     </div>
 
