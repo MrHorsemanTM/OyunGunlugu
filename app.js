@@ -43,11 +43,11 @@ async function startServer() {
     console.log('✅ Veritabanı tabloları güncellendi.');
     
     app.listen(PORT, () => {
-      console.log(`🚀 Sunucu çalışıyor: http://localhost:${PORT}`);
+      console.log(`Sunucu çalışıyor: http://localhost:${PORT}`);
       console.log('------------------------------------------');
     });
   } catch (error) {
-    console.error('❌ Sunucu başlatılırken hata oluştu:', error);
+    console.error('Sunucu başlatılırken hata oluştu:', error);
   }
 }
 
