@@ -4,3 +4,16 @@ body { font-family: sans-serif; max-width: 800px; margin: 20px auto; background-
 input, select, button { padding: 10px; margin: 5px; border: 1px solid #ddd; border-radius: 4px; }
 button { background: #28a745; color: white; border: none; cursor: pointer; }
 button.delete { background: #dc3545; }
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+    margin-left: 10px;
+}
+.badge-broken { background-color: #7f8c8d; }
+.badge-copper { background-color: #d35400; }
+.badge-silver { background-color: #bdc3c7; color: #2c3e50; } 
+.badge-gold { background-color: #f1c40f; color: #2c3e50; } 
+.badge-diamond { background-color: #3498db; }

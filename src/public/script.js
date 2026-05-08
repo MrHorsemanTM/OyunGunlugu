@@ -2,6 +2,15 @@ const API_URL = '/api/games';
 
 document.addEventListener('DOMContentLoaded', fetchGames);
 
+function getBadge(rating) {
+    if (rating <= 0) return `<span class="badge badge-broken">❌ Kırık Rozet</span>`;
+    if (rating == 1) return `<span class="badge badge-copper">🥉 Bakır Rozet</span>`;
+    if (rating == 2 || rating == 3) return `<span class="badge badge-silver">🥈 Gümüş Rozet</span>`;
+    if (rating == 4) return `<span class="badge badge-gold">🥇 Altın Rozet</span>`;
+    if (rating >= 5) return `<span class="badge badge-diamond">💎 Elmas Rozet</span>`;
+    return '';
+}
+
 async function fetchGames() {
     try {
         const res = await fetch(API_URL);
@@ -14,8 +23,8 @@ async function fetchGames() {
             div.className = 'game-card';
             div.innerHTML = `
                 <div>
-                    <strong>${game.title}</strong> (${game.genre}) - 
-                    <span>${game.status}</span> | Puan: ${game.rating}/10
+                    <strong>${game.title}</strong> ${getBadge(game.rating)} <br>
+                    <small>${game.genre} | ${game.status}</small>
                 </div>
                 <button class="delete" onclick="deleteGame(${game.id})">Sil</button>
             `;
