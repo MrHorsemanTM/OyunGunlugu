@@ -5,8 +5,7 @@ const gameService = {
     return await Game.findAll();
   },
 
-  async createGame(gameData) {
-    // İş mantığı kuralı
+  async createGame(gameData) {ı
     if (gameData.rating < 0 || gameData.rating > 10) {
       throw new Error('Puan 0-10 arasında olmalıdır.');
     }

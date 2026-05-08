@@ -4,7 +4,7 @@ const gameController = {
   async getAll(req, res) {
     try {
       const games = await gameService.getAllGames();
-      res.json(games); // Başarılıysa 200 döner
+      res.json(games); 
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -13,16 +13,16 @@ const gameController = {
   async create(req, res) {
     try {
       const newGame = await gameService.createGame(req.body);
-      res.status(201).json(newGame); // Yeni kaynak oluşturulduğunda 201
+      res.status(201).json(newGame); 
     } catch (error) {
-      res.status(400).json({ message: error.message }); // Hatalı istekte 400
+      res.status(400).json({ message: error.message }); 
     }
   },
 
   async delete(req, res) {
     try {
       await gameService.deleteGame(req.params.id);
-      res.status(204).send(); // İçerik yok (silme başarılı) durum kodu
+      res.status(204).send(); 
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
