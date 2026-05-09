@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', fetchGames);
 
 function getBadge(rating) {
     const r = parseInt(rating);
-    if (r === 0) return `<span class="badge badge-broken">❌ Kırık</span>`;
-    if (r === 1) return `<span class="badge badge-copper">🥉 Bakır</span>`;
-    if (r === 2) return `<span class="badge badge-silver">🥈 Gümüş</span>`;
-    if (r === 3) return `<span class="badge badge-gold">🥇 Altın</span>`;
-    if (r === 4) return `<span class="badge badge-emerald">💚 Zümrüt</span>`; // Yeni eklenen
-    if (r >= 5) return `<span class="badge badge-diamond">💎 Elmas</span>`;
+    if (r === 0) return '<span class="badge badge-broken">❌ Kırık</span>';
+    if (r === 1) return '<span class="badge badge-copper">🥉 Bakır</span>';
+    if (r === 2) return '<span class="badge badge-silver">🥈 Gümüş</span>';
+    if (r === 3) return '<span class="badge badge-gold">🥇 Altın</span>';
+    if (r === 4) return '<span class="badge badge-emerald">💚 Zümrüt</span>';
+    if (r >= 5) return '<span class="badge badge-diamond">💎 Elmas</span>';
     return '';
 }
 
@@ -18,6 +18,7 @@ async function fetchGames() {
         const res = await fetch(API_URL);
         const games = await res.json();
         const list = document.getElementById('games-container');
+        if (!list) return; // Güvenlik kontrolü
         list.innerHTML = ''; 
 
         games.forEach(game => {
@@ -33,7 +34,7 @@ async function fetchGames() {
             list.appendChild(div);
         });
     } catch (error) {
-        console.error("Veriler çekilirken hata oluştu:", error);
+        console.error("Hata:", error);
     }
 }
 
@@ -50,7 +51,7 @@ async function addGame() {
         status: statusVal
     };
 
-    if (!gameData.title) return alert("Lütfen en azından oyun adını girin!");
+    if (!gameData.title) return alert("Lütfen oyun adini girin!");
 
     try {
         const res = await fetch(API_URL, {
@@ -64,27 +65,25 @@ async function addGame() {
             document.getElementById('title').value = '';
             document.getElementById('genre').value = '';
             document.getElementById('rating').value = '';
-            
             fetchGames(); 
         } else {
             const errorDetail = await res.json();
-            alert("Ekleme Hatası: " + (errorDetail.message || "Veri formatı hatalı"));
+            alert("Hata: " + (errorDetail.message || "Veri hatasi"));
         }
     } catch (error) {
-        console.error("İstek gönderilirken hata:", error);
-        alert("Sunucuya ulaşılamadı!");
+        console.error("Istek hatası:", error);
     }
 }
 
 async function deleteGame(id) {
-    if (confirm("Bu oyunu silmek istediğine emin misin?")) {
+    if (confirm("Silmek istedigine emin misin?")) {
         try {
             const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
             if (res.ok) {
                 fetchGames(); 
             }
         } catch (error) {
-            alert("Silme işlemi başarısız.");
+            alert("Islem basarisiz.");
         }
     }
 }

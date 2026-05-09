@@ -14,7 +14,18 @@
             <h3>Yeni Oyun & Rozet Ekle</h3>
             <div class="form-group">
                 <input type="text" id="title" placeholder="Oyun Adı" required>
-                <input type="text" id="genre" placeholder="Tür (Örn: RPG, FPS)">
+                
+                <select id="genre">
+                    <option value="Aksiyon-Macera">Aksiyon-Macera</option>
+                    <option value="RPG">RPG (Rol Yapma)</option>
+                    <option value="FPS">FPS (Nişancı)</option>
+                    <option value="Stealth">Stealth (Gizlilik)</option>
+                    <option value="Souls-like">Souls-like</option>
+                    <option value="Spor">Spor</option>
+                    <option value="Strateji">Strateji</option>
+                    <option value="Korku">Korku</option>
+                    <option value="Simülasyon">Simülasyon</option>
+                </select>
             </div>
             
             <div class="form-group">
@@ -42,11 +53,10 @@
 
         <div id="game-list">
             <h2>Kütüphanem</h2>
-            <div id="games-container">
-                </div>
+            <div id="games-container"></div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=final_fix"></script>
 </body>
 </html>
