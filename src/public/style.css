@@ -1,9 +1,87 @@
-body { font-family: sans-serif; max-width: 800px; margin: 20px auto; background-color: #f4f4f9; }
-.game-card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
-#game-form { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-input, select, button { padding: 10px; margin: 5px; border: 1px solid #ddd; border-radius: 4px; }
-button { background: #28a745; color: white; border: none; cursor: pointer; }
-button.delete { background: #dc3545; }
+/* Genel Sayfa ve Arka Plan Tasarımı */
+body { 
+    font-family: sans-serif; 
+    max-width: 800px; 
+    margin: 20px auto; 
+    background-color: #121212; /* Koyu gri/siyah arka plan */
+    color: #e0e0e0; /* Açık gri yazı rengi */
+}
+
+/* Üst Başlık Alanı */
+h1, h2, h3 {
+    color: #ffffff;
+}
+
+/* Form Kartı Tasarımı */
+#game-form { 
+    background: #1e1e1e; /* Karta özel biraz daha açık koyu gri */
+    padding: 20px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid #2d2d2d;
+}
+
+/* Oyun Kartları Tasarımı */
+.game-card { 
+    background: #1e1e1e; 
+    padding: 15px; 
+    margin-bottom: 10px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border: 1px solid #2d2d2d;
+}
+
+/* Form Elemanları (Input, Select, Textarea) */
+input, select, textarea { 
+    padding: 10px; 
+    margin: 5px; 
+    background-color: #2a2a2a; /* Giriş alanlarının iç arka planı */
+    color: #ffffff; /* Giriş alanlarındaki yazı rengi */
+    border: 1px solid #444444; 
+    border-radius: 4px; 
+}
+
+/* Input ve Select'lerin placeholder renkleri */
+input::placeholder, textarea::placeholder {
+    color: #888888;
+}
+
+/* Odaklanılan (Focus) Elemanlar */
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #28a745; /* Yeşil odak çerçevesi */
+}
+
+/* Butonlar */
+button { 
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 4px;
+    background: #28a745; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: bold;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background: #218838;
+}
+
+button.delete { 
+    background: #dc3545; 
+}
+
+button.delete:hover {
+    background: #c82333;
+}
+
+/* Rozet (Badge) Ortak Tasarımı */
 .badge {
     padding: 4px 8px;
     border-radius: 12px;
@@ -11,10 +89,13 @@ button.delete { background: #dc3545; }
     font-weight: bold;
     color: white;
     margin-left: 10px;
+    display: inline-block;
 }
-.badge-broken { background-color: #7f8c8d; }
+
+/* Senin Özel Rozet Renklerin (Koyu Temaya Uyarlanmış Parlaklıkta) */
+.badge-broken { background-color: #5a6268; }
 .badge-copper { background-color: #d35400; }
-.badge-silver { background-color: #bdc3c7; color: #2c3e50; } 
+.badge-silver { background-color: #7f8c8d; color: #fff; } 
 .badge-gold { background-color: #f1c40f; color: #2c3e50; } 
 .badge-emerald { background-color: #2ecc71; color: white; }
 .badge-diamond { background-color: #3498db; }

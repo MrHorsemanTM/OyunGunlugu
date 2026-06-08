@@ -5,10 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oyun Günlüğüm | Rozet Sistemi</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Senin style.css temanla tam uyumlu ek düzenlemeler */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .logout-btn:hover { background-color: #c82333; }
+        
+        /* Form elemanlarının alt alta daha düzgün durması için */
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .form-group input, .form-group select {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        /* Senin beyaz form temana uygun textarea stili */
+        textarea {
+            width: calc(100% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: sans-serif;
+            resize: vertical;
+        }
+        
+        .game-info h3 { margin: 0 0 8px 0; }
+        .game-info p { margin: 4px 0; color: #555; }
+        .game-summary {
+            background: #f9f9f9;
+            padding: 8px;
+            border-left: 3px solid #28a745;
+            margin-top: 8px;
+            font-style: italic;
+            font-size: 0.95em;
+            color: #333 !important;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎮 Oyun Günlüğü Koleksiyonum</h1>
+        <div class="header-container">
+            <h1>🎮 Oyun Günlüğü Koleksiyonum</h1>
+            <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
+        </div>
         
         <div id="game-form" class="card">
             <h3>Yeni Oyun & Rozet Ekle</h3>
@@ -29,7 +85,7 @@
             </div>
             
             <div class="form-group">
-                <label for="rating">Oyun Rozeti:</label>
+                <label for="rating" style="display: flex; align-items: center; margin-left: 5px; font-weight: bold;">Oyun Rozeti:</label>
                 <select id="rating">
                     <option value="0">❌ Kırık Rozet (0 Puan)</option>
                     <option value="1">🥉 Bakır Rozet (1 Puan)</option>
@@ -40,10 +96,14 @@
                 </select>
 
                 <select id="status">
-                    <option value="İstek Listesi">Bırakıldı</option>
-                    <option value="Oynanıyor">Oynanılacak</option>
-                    <option value="Tamamlandı">Tamamlandı</option>
+                    <option value="dropped">Bırakıldı</option>
+                    <option value="plan-to-play">Oynanılacak</option>
+                    <option value="completed">Tamamlandı</option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <textarea id="summary" rows="3" placeholder="Oyun hakkında özet, düşünceleriniz veya günlük notlarınız..."></textarea>
             </div>
             
             <button id="add-btn" onclick="addGame()">Kütüphaneye Ekle</button>
@@ -57,6 +117,131 @@
         </div>
     </div>
 
-    <script src="script.js?v=final_fix"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadGames);
+
+        // 1. OYUNLARI LİSTELEME
+        async function loadGames() {
+            const container = document.getElementById('games-container');
+            container.innerHTML = '<p>Yükleniyor...</p>';
+
+            try {
+                const response = await fetch('/api/games');
+                if (response.status === 401) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+                const result = await response.json();
+                
+                container.innerHTML = '';
+                if (!result.success || result.data.length === 0) {
+                    container.innerHTML = '<p>Kütüphanenizde henüz oyun yok. İlk oyununuzu yukarıdan ekleyin!</p>';
+                    return;
+                }
+
+                // Senin style.css içindeki CSS sınıflarınla rozet eşleştirmesi
+                const badgeClassMap = {
+                    0: { text: "Kırık Rozet", class: "badge-broken" },
+                    1: { text: "Bakır Rozet", class: "badge-copper" },
+                    2: { text: "Gümüş Rozet", class: "badge-silver" },
+                    3: { text: "Altın Rozet", class: "badge-gold" },
+                    4: { text: "Zümrüt Rozet", class: "badge-emerald" },
+                    5: { text: "Elmas Rozet", class: "badge-diamond" }
+                };
+
+                // Durumları düzgün Türkçe göstermek için eşleme
+                const statusMap = {
+                    'dropped': 'Bırakıldı',
+                    'plan-to-play': 'Oynanılacak',
+                    'completed': 'Tamamlandı'
+                };
+
+                result.data.forEach(game => {
+                    const badgeInfo = badgeClassMap[game.rating] || { text: "Bilinmeyen", class: "" };
+                    const displayStatus = statusMap[game.status] || game.status;
+
+                    const gameEl = document.createElement('div');
+                    gameEl.className = 'game-card';
+                    gameEl.innerHTML = `
+                        <div class="game-info">
+                            <h3>${game.title} <span class="badge ${badgeInfo.class}">${badgeInfo.text}</span></h3>
+                            <p><strong>Tür:</strong> ${game.genre} | <strong>Durum:</strong> ${displayStatus}</p>
+                            ${game.summary ? `<p class="game-summary"><strong>Özet/Not:</strong> "${game.summary}"</p>` : ''}
+                        </div>
+                        <button class="delete" onclick="deleteGame(${game.id})">Sil</button>
+                    `;
+                    container.appendChild(gameEl);
+                });
+
+            } catch (error) {
+                container.innerHTML = '<p>Oyunlar yüklenirken sunucu hatası oluştu.</p>';
+            }
+        }
+
+        // 2. YENİ OYUN EKLEME
+        async function addGame() {
+            const title = document.getElementById('title').value.trim();
+            const genre = document.getElementById('genre').value;
+            const rating = parseInt(document.getElementById('rating').value);
+            const status = document.getElementById('status').value;
+            const summary = document.getElementById('summary').value.trim();
+
+            if (!title) {
+                alert('Lütfen oyun adını girin!');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/games', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, genre, rating, status, summary })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('title').value = '';
+                    document.getElementById('summary').value = '';
+                    loadGames();
+                } else {
+                    alert('Hata: ' + result.message);
+                }
+            } catch (error) {
+                alert('Sunucuyla iletişim kurulurken bir hata oluştu.');
+            }
+        }
+
+        // 3. OYUN SİLME
+        async function deleteGame(id) {
+            if (!confirm('Bu oyunu günlüğünüzden silmek istediğinize emin misiniz?')) return;
+
+            try {
+                const response = await fetch(`/api/games/${id}`, { method: 'DELETE' });
+                if (response.ok) {
+                    loadGames();
+                } else {
+                    const result = await response.json();
+                    alert('Hata: ' + result.message);
+                }
+            } catch (error) {
+                alert('Silme işlemi sırasında sunucu hatası oluştu.');
+            }
+        }
+
+        // 4. ÇIKIŞ YAPMA
+        async function logout() {
+            try {
+                const response = await fetch('/api/auth/logout', { method: 'POST' });
+                if (response.ok) {
+                    window.location.href = '/login.html';
+                } else {
+                    alert('Çıkış yapılamadı.');
+                }
+            } catch (error) {
+                alert('Sunucu iletişim hatası.');
+            }
+        }
+    </script>
 </body>
 </html>

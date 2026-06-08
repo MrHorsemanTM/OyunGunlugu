@@ -10,12 +10,17 @@ const Game = sequelize.define('Game', {
     type: DataTypes.STRING
   },
   status: {
-    type: DataTypes.ENUM('İstek Listesi', 'Oynanıyor', 'Tamamlandı'),
-    defaultValue: 'İstek Listesi'
+    // Veritabanı seviyesinde İngilizce ve standart karakterler kullanıyoruz
+    type: DataTypes.ENUM('dropped', 'plan-to-play', 'completed'),
+    defaultValue: 'plan-to-play'
   },
   rating: {
     type: DataTypes.INTEGER,
-    validate: { min: 0, max: 10 }
+    validate: { min: 0, max: 5 }
+  },
+  summary: {
+    type: DataTypes.TEXT,
+    allowNull: true
   }
 });
 
