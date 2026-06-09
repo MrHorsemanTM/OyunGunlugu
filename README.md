@@ -59,7 +59,7 @@ PORT=3000
 4. Uygulamayı Başlatma
 node app.js
 
-Sunucu çalıştıktan sonra tarayıcıdan http://localhost:3000 adresine giderek uygulamayı kullanabilirsiniz.
+Sunucu çalıştıktan sonra tarayıcıdan http://localhost:3000/login.html adresine giderek uygulamayı kullanabilirsiniz.
 
 🧪 Testlerin Çalıştırılması
 İş mantığının doğruluğunu teyit etmek için hazırlanan unit testleri şu komutla çalıştırabilirsiniz:
